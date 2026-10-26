@@ -66,8 +66,7 @@ public class CategoryService {
     }
 
     @Transactional
-    public CategoryResponse updateStatus(
-            UUID id, CategoryStatusRequest request) {
+    public CategoryResponse updateStatus(UUID id, CategoryStatusRequest request) {
 
         findOrThrow(id);
         return toResponse(repository.updateStatus(id, request.active()));
