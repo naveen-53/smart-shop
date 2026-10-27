@@ -71,3 +71,85 @@ button:hover {
     flex-wrap: wrap;
   }
 }
+
+
+.category-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 520px;
+  margin-bottom: 36px;
+  padding: 24px;
+  background: white;
+  border: 1px solid #e4e7ec;
+  border-radius: 12px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-field label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d0d5dd;
+  border-radius: 7px;
+  font: inherit;
+}
+
+.form-field textarea {
+  resize: vertical;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.secondary-button {
+  background: #eef1f6;
+  color: #344054;
+}
+
+.secondary-button:hover {
+  background: #dfe4ec;
+}
+
+.error-message {
+  color: #b42318;
+  background: #fef3f2;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.success-message {
+  color: #067647;
+  background: #ecfdf3;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.category-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.category-details p {
+  margin: 6px 0 0;
+  color: #667085;
+  font-size: 14px;
+}
+

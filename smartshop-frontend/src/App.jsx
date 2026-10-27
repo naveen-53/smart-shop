@@ -1,61 +1,52 @@
 
-import { useState } from 'react'
-import './App.css'
+import { useEffect, useState } from 'react'
+import { getCategories } from './services/categoryService'
 
 function App() {
-  const [categoryName, setCategoryName] = useState('')
-  const [categories, setCategories] = useState([
-    { id: 1, name: 'Groceries' },
-    { id: 2, name: 'Beverages' },
-  ])
+  const [categories, setCategories] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
 
-  function addCategory() {
-    const name = categoryName.trim()
-
-    if (!name) {
-      return
+  useEffect(() => {
+    async function loadCategories() {
+      try {
+        const data = await getCategories()
+        setCategories(data)
+      } catch (err) {
+        setError(err.message || 'Something went wrong')
+      } finally {
+        setLoading(false)
+      }
     }
 
-    const newCategory = {
-      id: crypto.randomUUID(),
-      name: name,
-    }
+    loadCategories()
+  }, [])
 
-    setCategories((previousCategories) => [
-      ...previousCategories,
-      newCategory,
-    ])
+  if (loading) {
+    return <p>Loading categories...</p>
+  }
 
-    setCategoryName('')
+  if (error) {
+    return <p>Error: {error}</p>
   }
 
   return (
-    <main className="app-container">
+    <main>
       <h1>SmartShop</h1>
       <h2>Category Management</h2>
 
-      <form
-        className="category-form"
-        onSubmit={(event) => {
-          event.preventDefault()
-          addCategory()
-        }}
-      >
-        <input
-          value={categoryName}
-          onChange={(event) => setCategoryName(event.target.value)}
-          placeholder="Enter category name"
-          maxLength={100}
-        />
-
-        <button type="submit">Add Category</button>
-      </form>
-
-      <ul className="category-list">
-        {categories.map((category) => (
-          <li key={category.id}>{category.name}</li>
-        ))}
-      </ul>
+      {categories.length === 0 ? (
+        <p>No categories found.</p>
+      ) : (
+        <ul>
+          {categories.map((category) => (
+            <li key={category.id}>
+              <strong>{category.name}</strong>
+              <p>{category.description || 'No description'}</p>
+            </li>
+          ))}
+        </ul>
+      )}
     </main>
   )
 }
